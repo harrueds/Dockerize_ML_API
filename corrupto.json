@@ -1,0 +1,61 @@
+{
+    "_comentario": "Archivo de prueba INVÁLIDO para validación de errores de la API",
+    "_proposito": "Este archivo contiene intencionalmente datos incorrectos para probar el manejo de errores de la API de predicción de cáncer de mama. Se utiliza para verificar que la API valida correctamente la entrada y devuelve mensajes de error apropiados.",
+    "_tipo_de_error": "Número insuficiente de características",
+    "_error_especifico": {
+        "descripcion": "El array 'features' contiene solo 29 valores en lugar de los 30 requeridos",
+        "valores_esperados": 30,
+        "valores_proporcionados": 29,
+        "caracteristica_faltante": "feature_23 (Peor área) - índice 23"
+    },
+    "_uso": "curl -X POST http://127.0.0.1:5000/predict -H 'Content-Type: application/json' -d @corrupto.json",
+    "_respuesta_esperada": {
+        "codigo_http": 400,
+        "tipo_error": "Bad Request o Prediction Error",
+        "mensaje": "Error relacionado con dimensiones incorrectas del array de características"
+    },
+    "_comparacion_con_correcto": {
+        "archivo_valido": "correcto.json (30 características)",
+        "este_archivo": "corrupto.json (29 características)",
+        "diferencia": "Falta 1 característica en la posición 23"
+    },
+    "_impacto_en_modelo": "El modelo de scikit-learn espera exactamente 30 características. Al recibir 29, el reshape(1, -1) funcionará pero model.predict() fallará porque las dimensiones no coinciden con las del entrenamiento.",
+    "features": [
+        14.2,
+        20.3,
+        92.4,
+        600.5,
+        0.1,
+        0.2,
+        0.3,
+        0.1,
+        0.2,
+        0.05,
+        0.3,
+        1.0,
+        2.0,
+        30.0,
+        0.01,
+        0.1,
+        0.05,
+        0.01,
+        0.05,
+        0.01,
+        15.0,
+        25.0,
+        100.0,
+        0.12,
+        0.4,
+        0.6,
+        0.2,
+        0.3,
+        0.08
+    ],
+    "_nota_tecnica": "Este archivo demuestra la importancia de la validación de entrada en APIs de Machine Learning. Sin validación adecuada, errores como este podrían causar excepciones no controladas en el servidor.",
+    "_casos_de_prueba_relacionados": {
+        "test_1": "JSON con clave incorrecta (sin 'features')",
+        "test_2": "features como string en lugar de lista",
+        "test_3": "features con valores no numéricos (ej: strings)",
+        "test_4": "Este archivo - número incorrecto de características"
+    }
+}

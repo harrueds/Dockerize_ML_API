@@ -1,0 +1,64 @@
+{
+    "_comentario": "Archivo de prueba INVÁLIDO para validación de errores de la API",
+    "_proposito": "Este archivo contiene intencionalmente datos incorrectos para probar el manejo de errores de la API de predicción de cáncer de mama. Se utiliza para verificar que la API valida correctamente los tipos de datos de entrada y devuelve mensajes de error apropiados cuando se encuentran valores no numéricos.",
+    "_tipo_de_error": "Tipo de dato inválido en el array de características",
+    "_error_especifico": {
+        "descripcion": "El array 'features' contiene un valor de tipo string ('a') en lugar de un valor numérico",
+        "posicion_del_error": "Índice 23 (elemento 24 del array)",
+        "valor_invalido": "a",
+        "tipo_recibido": "string",
+        "tipo_esperado": "float o int",
+        "caracteristica_afectada": "feature_23 (Peor área)"
+    },
+    "_uso": "curl -X POST http://127.0.0.1:5000/predict -H 'Content-Type: application/json' -d @corrupto2.json",
+    "_respuesta_esperada": {
+        "codigo_http": 400,
+        "tipo_error": "Bad Request o Validation Error",
+        "mensaje": "Error relacionado con tipo de dato inválido: no se puede convertir string a float"
+    },
+    "_comparacion_con_correcto": {
+        "archivo_valido": "correcto.json (30 características numéricas)",
+        "este_archivo": "corrupto2.json (29 valores numéricos + 1 string)",
+        "diferencia": "Contiene un string 'a' en la posición 23 donde debería haber un valor numérico"
+    },
+    "_impacto_en_modelo": "El modelo de scikit-learn requiere que todas las características sean valores numéricos (float o int). Al intentar convertir el array a numpy array o durante el preprocesamiento, se generará un ValueError o TypeError porque no se puede realizar operaciones matemáticas con strings. Esto puede ocurrir en la conversión a numpy, normalización, o durante model.predict().",
+    "features": [
+        14.2,
+        20.3,
+        92.4,
+        600.5,
+        0.1,
+        0.2,
+        0.3,
+        0.1,
+        0.2,
+        0.05,
+        0.3,
+        1.0,
+        2.0,
+        30.0,
+        0.01,
+        0.1,
+        0.05,
+        0.01,
+        0.05,
+        0.01,
+        15.0,
+        25.0,
+        100.0,
+        "a",
+        0.12,
+        0.4,
+        0.6,
+        0.2,
+        0.3,
+        0.08
+    ],
+    "_nota_tecnica": "Este archivo demuestra la importancia de la validación de entrada en APIs de Machine Learning. Sin validación adecuada, errores como este podrían causar excepciones no controladas en el servidor.",
+    "_casos_de_prueba_relacionados": {
+        "test_1": "JSON con clave incorrecta (sin 'features')",
+        "test_2": "features como string en lugar de lista",
+        "test_3": "Este archivo - valores no numéricos (ej: strings)",
+        "test_4": "features con número incorrecto de características"
+    }
+}
