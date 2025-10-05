@@ -51,3 +51,11 @@ pip-selfcheck.json
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Compressed files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.gz
+*.bz2
