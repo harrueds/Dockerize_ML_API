@@ -17,6 +17,7 @@ conda-meta/
 
 # VSCode (si no querés subir tu configuración local)
 .vscode/
+settings.json
 
 # Jupyter
 .ipynb_checkpoints
